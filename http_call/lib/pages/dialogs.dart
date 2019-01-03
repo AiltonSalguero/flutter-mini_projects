@@ -45,14 +45,14 @@ class _DialogsPageState extends State<DialogsPage> {
               textColor: Colors.blue,
               child: Text('Yes'),
               onPressed: () {
-                print("Yes");
+                Navigator.of(context).pop(true);
               },
             ),
             FlatButton(
               textColor: Colors.blue,
               child: Text('No'),
               onPressed: () {
-                print("No");
+                Navigator.of(context).pop(false);
               },
             ),
           ],
