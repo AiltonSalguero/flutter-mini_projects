@@ -21,7 +21,9 @@ class _DialogsPageState extends State<DialogsPage> {
           color: Colors.blue,
           elevation: 10.0,
           onPressed: () {
-            showQuitDialog(context).then((vale){});
+            showQuitDialog(context).then((value){
+              print("Returned value: $value");
+            });
           },
           child: Text("Tap me"),
           textColor: Colors.white,
@@ -31,12 +33,14 @@ class _DialogsPageState extends State<DialogsPage> {
     );
   }
 
+  //====================== Methods ===============================//
   Future<bool> showQuitDialog(BuildContext context) {
     // Builds the alert dialog
     return showDialog(
       context: context,
       barrierDismissible: false, // Doesn't allow the dialog to close
       builder: (BuildContext context) {
+        // Widget Dialog
         return AlertDialog(
           title: Text("Do you want to quit?"),
           actions: <Widget>[
@@ -45,6 +49,7 @@ class _DialogsPageState extends State<DialogsPage> {
               textColor: Colors.blue,
               child: Text('Yes'),
               onPressed: () {
+                // Returns true
                 Navigator.of(context).pop(true);
               },
             ),
@@ -52,6 +57,7 @@ class _DialogsPageState extends State<DialogsPage> {
               textColor: Colors.blue,
               child: Text('No'),
               onPressed: () {
+                // Returns false
                 Navigator.of(context).pop(false);
               },
             ),
