@@ -73,11 +73,6 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
                 ),
           )
 
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     child: Text(_allData),
-          //   ),
-          // )
         ],
       ),
     );
