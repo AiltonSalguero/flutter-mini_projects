@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+import 'package:http_call/model/sentence.dart';
 
 class HttpRequestPage extends StatefulWidget {
   _HttpRequestPageState createState() => _HttpRequestPageState();
@@ -10,12 +12,14 @@ class HttpRequestPage extends StatefulWidget {
 class _HttpRequestPageState extends State<HttpRequestPage> {
   final _newsUrl =
       "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=846a04086fbe4f6081c32695a0686315";
-
   final _app_id = "c078a9d0";
   final _app_key = "fa8b3145a7f435b135000eb889afba4a";
 
-  String _sentence = "Sentences";
+  SentencesExample _sentencesExample;
   final _wordController = TextEditingController();
+
+  String _allData = "data";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +54,30 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
             "Example:",
             style: TextStyle(fontSize: 20),
           ),
-          Text(_sentence),
+
+          Expanded(
+            child: _sentencesExample == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 1,
+                  padding: EdgeInsets.all(2.0),
+                  childAspectRatio: 6,
+                  children: _sentencesExample.sentence
+                      .map(
+                        (sen) => Text(sen.text.toString(), style: TextStyle(fontSize: 16.0,),)
+                      )
+                      .toList(),
+                ),
+          )
+
+          // Expanded(
+          //   child: SingleChildScrollView(
+          //     child: Text(_allData),
+          //   ),
+          // )
         ],
       ),
     );
@@ -66,14 +93,20 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
 
     /// Converts JSON to an array
     var decodedData = json.decode(response.body);
-
-    // Gets a specific data from the JSON
-    print(response.body);
+    print("=====================================");
+    print("=====================================");
+    //print(decodedData);
+    print(decodedData['results']);
+    print(
+        decodedData['results'][0]['lexicalEntries'][0]['sentences'][0]['text']);
+    print(decodedData['results'][0]['lexicalEntries'][0]['sentences']);
+    _sentencesExample = SentencesExample.fromJson(
+        decodedData['results'][0]['lexicalEntries'][0]);
 
     setState(() {
-      _sentence = decodedData['results'][0]['lexicalEntries'][0]['sentences'][0]
-          ['text'];
-      print(_sentence);
+      // _sentence = decodedData['results'][0]['lexicalEntries'][0]['sentences'][0]
+      //     ['text'];
+      // _sentence1 = response.body;
     });
   }
 

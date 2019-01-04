@@ -4,6 +4,8 @@ import 'package:http_call/pages/list.dart';
 import 'package:http_call/pages/home.dart';
 import 'package:http_call/pages/dialogs.dart';
 import 'package:http_call/pages/http_request.dart';
+import 'package:http_call/pages/list_example.dart';
+import 'package:http_call/pages/gridview_example.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        //home: ListPage(),
-        home: HttpRequestPage());
+        home: HttpRequestPage(),);
+        //home: HttpRequestPage());
   }
 }
