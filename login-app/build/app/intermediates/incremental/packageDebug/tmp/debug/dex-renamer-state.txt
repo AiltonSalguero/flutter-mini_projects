@@ -1,0 +1,4 @@
+#Fri Jan 04 17:08:17 PET 2019
+base.0=/home/ailton/GitClones/flutter-mini_projects/login-app/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

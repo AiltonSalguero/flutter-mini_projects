@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">611442151609-nlaft490cutc5hne79pufjq3d6jcskbt.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://ailtonsocialmedia.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">611442151609</string>
+    <string name="google_api_key" translatable="false">AIzaSyAFrAUcgtTzWYBGT7Y429vmhHO3eDX1nDo</string>
+    <string name="google_app_id" translatable="false">1:611442151609:android:7738fe742be9f442</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAFrAUcgtTzWYBGT7Y429vmhHO3eDX1nDo</string>
+    <string name="google_storage_bucket" translatable="false">ailtonsocialmedia.appspot.com</string>
+    <string name="project_id" translatable="false">ailtonsocialmedia</string>
+</resources>
