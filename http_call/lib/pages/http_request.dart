@@ -14,6 +14,7 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
   final _app_id = "c078a9d0";
   final _app_key = "fa8b3145a7f435b135000eb889afba4a";
 
+  String _sentence = "Sentences";
   final _wordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
         children: <Widget>[
           // Input for the search
           TextField(
-            controller: _wordController, /// Variable for the input
+            controller: _wordController,
+
+            /// Variable for the input
             textAlign: TextAlign.left,
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -36,12 +39,18 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
 
           // Search Button
           RaisedButton(
-            onPressed: () => _getDataFromUrl(_dictionaryEntries(_wordController.text)),
+            onPressed: () =>
+                _getDataFromUrl(_dictionarySentences(_wordController.text)),
             textColor: Colors.white,
             elevation: 8.0,
-            child: Text("Get News"),
+            child: Text("Get Sentence"),
             color: Colors.blue,
           ),
+          Text(
+            "Example:",
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(_sentence),
         ],
       ),
     );
@@ -54,15 +63,21 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
       'app_id': _app_id,
       'app_key': _app_key
     });
+
     /// Converts JSON to an array
     var decodedData = json.decode(response.body);
 
     // Gets a specific data from the JSON
     print(response.body);
-    print(decodedData);
+
+    setState(() {
+      _sentence = decodedData['results'][0]['lexicalEntries'][0]['sentences'][0]
+          ['text'];
+      print(_sentence);
+    });
   }
 
-  String _dictionaryEntries(word) {
+  String _dictionarySearch(word) {
     final String language = "en";
     final wordId = word
         .toLowerCase(); //word id is case sensitive and lowercase is required
@@ -70,5 +85,16 @@ class _HttpRequestPageState extends State<HttpRequestPage> {
         language +
         "?q=" +
         wordId;
+  }
+
+  String _dictionarySentences(word) {
+    final String language = "en";
+    final wordId = word
+        .toLowerCase(); //word id is case sensitive and lowercase is required
+    return "https://od-api.oxforddictionaries.com:443/api/v1/entries/" +
+        language +
+        "/" +
+        wordId +
+        "/sentences";
   }
 }
