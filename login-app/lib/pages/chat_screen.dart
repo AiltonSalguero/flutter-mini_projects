@@ -73,9 +73,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }
 
   void _handleSubmitted(String text) {
-    print('========================================');
-    print('sendend');
-    _textController.clear();
+    _textController.clear(); // Resets the text message
     _googleSignIn.signIn().then((user) {
       var message = {
         'sender': {'name': user.displayName, 'imageUrl': user.photoUrl},
