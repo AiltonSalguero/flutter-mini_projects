@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  _LoginPageState createState() => _LoginPageState();
+class SignUpPage extends StatefulWidget {
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
 
   String _email;
@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Login",
+          "Sign Up",
         ),
       ),
 
@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     _buildMargin(),
+                    // Input for the email
                     TextFormField(
                       validator: (value) =>
                           value.isEmpty ? "Email is blank" : null,
@@ -57,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                     ),
                     _buildMargin(),
+                    // Input for the password
                     TextFormField(
                       validator: (value) =>
                           value.isEmpty ? "Password is blank" : null,
@@ -72,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     _buildMargin(),
 
+                    // Register Button
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       child: Material(
@@ -80,28 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                         shadowColor: Colors.lightBlueAccent,
                         elevation: 7,
                         child: MaterialButton(
-                          onPressed: () => _loginUser(),
+                          onPressed: () => _createUser(),
                           minWidth: 400,
                           height: 20,
                           elevation: 0,
                           color: Colors.lightBlueAccent,
                           child: Text(
-                            "Log In",
+                            "Register",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text("Don\'t have an account?"),
-                        FlatButton(
-                          onPressed: () {
-                            _toSignUpPage();
-                          },
-                          child: Text("Sign Up"),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -115,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _checkFields() {
+    // Validates the data
     final form = _formkey.currentState;
 
     if (form.validate()) {
@@ -125,21 +118,24 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  _loginUser() {
+  _createUser() {
+    // Creates a user in firebase 
     if (_checkFields()) {
       FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: _email, password: _password)
+          .createUserWithEmailAndPassword(
+        email: _email,
+        password: _password,
+      )
           .then((user) {
-        print("Signed as ${user.uid}");
+        print("Signed in ${user.uid}");
+
+        // When you signUp you won't be able to go back to the login page
+        Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed('/dashboard');
-      }).catchError((e){
+      }).catchError((e) {
         print(e);
       });
     }
-  }
-
-  _toSignUpPage() {
-    Navigator.of(context).pushNamed('/signup');
   }
 
   Widget _buildMargin() {
