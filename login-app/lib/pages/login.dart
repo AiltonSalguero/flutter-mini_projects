@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
@@ -11,6 +12,10 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email;
   String _password;
+
+  // Google Sign In
+  final _auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
+                    MaterialButton(
+                      onPressed: () => _loginUserWithGoogle(),
+                      child: Text("Sign In with Google"),
+                    )
                   ],
                 ),
               ),
@@ -125,6 +134,22 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<FirebaseUser> _loginUserWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuth =
+        await googleSignInAccount.authentication;
+
+    FirebaseUser user = await _auth.signInWithGoogle(
+      idToken: googleSignInAuth.idToken,
+      accessToken: googleSignInAuth.accessToken,
+    );
+    print("Signed as ${user.displayName}");
+    print(user);
+    Navigator.of(context).pushReplacementNamed('/dashboard');
+
+    return user;
+  }
+
   _loginUser() {
     if (_checkFields()) {
       FirebaseAuth.instance
@@ -132,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
           .then((user) {
         print("Signed as ${user.uid}");
         Navigator.of(context).pushReplacementNamed('/dashboard');
-      }).catchError((e){
+      }).catchError((e) {
         print(e);
       });
     }

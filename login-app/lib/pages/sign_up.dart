@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
@@ -11,6 +12,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String _email;
   String _password;
+
+  // GOOGLE
+  final _auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +122,23 @@ class _SignUpPageState extends State<SignUpPage> {
       return false;
     }
   }
+
+  Future<FirebaseUser> _createUserWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuth =
+        await googleSignInAccount.authentication;
+
+    FirebaseUser user = await _auth.signInWithGoogle(
+      idToken: googleSignInAuth.idToken,
+      accessToken: googleSignInAuth.accessToken,
+    );
+    print("Signed as ${user.displayName}");
+    print(user);
+    //Navigator.of(context).pushReplacementNamed('/dashboard');
+
+    return user;
+  }
+
 
   _createUser() {
     // Creates a user in firebase 

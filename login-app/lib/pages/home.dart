@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -37,6 +38,17 @@ class _HomePageState extends State<HomePage> {
                   width: 3,
                 ),
               ),
+              OutlineButton(
+                onPressed: () {
+                  _logOutUserWithGoogle();
+                },
+                child: Text("LogOut from google"),
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  style: BorderStyle.solid,
+                  width: 3,
+                ),
+              ),
             ],
           ),
         ),
@@ -44,6 +56,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _logOutUserWithGoogle(){
+    GoogleSignIn().signOut();
+    Navigator.of(context).pushReplacementNamed('/landingpage');
+  }
+  
   _logOutUser() {
     // Logs out the user
     FirebaseAuth.instance.signOut().then((action) {
