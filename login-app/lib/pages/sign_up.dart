@@ -124,9 +124,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<FirebaseUser> _createUserWithGoogle() async {
-    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    GoogleSignInAccount googleSignInAcc = await googleSignIn.signIn();
     GoogleSignInAuthentication googleSignInAuth =
-        await googleSignInAccount.authentication;
+        await googleSignInAcc.authentication;
 
     FirebaseUser user = await _auth.signInWithGoogle(
       idToken: googleSignInAuth.idToken,
@@ -134,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
     print("Signed as ${user.displayName}");
     print(user);
-    //Navigator.of(context).pushReplacementNamed('/dashboard');
+    Navigator.of(context).pushReplacementNamed('/home');
 
     return user;
   }
