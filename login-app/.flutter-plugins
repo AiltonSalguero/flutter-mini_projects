@@ -1,4 +1,7 @@
 cloud_firestore=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.8.2+3/
 firebase_auth=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.6.6/
 firebase_core=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.2.5+1/
+firebase_database=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-1.0.5/
+firebase_storage=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-1.0.4/
 google_sign_in=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-3.2.4/
+image_picker=/home/ailton/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.4.10/

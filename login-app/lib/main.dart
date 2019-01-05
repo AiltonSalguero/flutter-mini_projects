@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:login/pages/login.dart';
 import 'package:login/pages/sign_up.dart';
 import 'package:login/pages/home.dart';
+import 'package:login/pages/chat_screen.dart';
+import 'package:login/pages/type_meme.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: ChatScreen(),
       // Creates the routes for the different pages
       routes: <String, WidgetBuilder>{
         '/landingpage' : (BuildContext context) => LoginPage(),
