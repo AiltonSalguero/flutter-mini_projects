@@ -1,7 +1,7 @@
 class Contact{
-  final int id;
-  final String name;
-  final String phone;
+  int id;
+  String name;
+  String phone;
 
-  Contact(this.id, this.name, this.phone);
+  Contact();
 }
